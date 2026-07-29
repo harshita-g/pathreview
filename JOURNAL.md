@@ -2,7 +2,7 @@
 
 ## Week 7 — Issue selection
 
-**Issue link:** PASTE_ISSUE_LINK
+**Issue link:** https://github.com/ascherj/pathreview/issues/50
 
 **Issue title:** Add a has_tests boolean to the repo analysis output
 
@@ -20,7 +20,7 @@ The repository analysis output currently does not indicate whether a project inc
 - The estimated effort of 2–4 hours fits the Module 3 timeline.
 - I can verify the implementation using repositories with and without test files.
 
-**Branch name:** feat/ISSUE_NUMBER-add-has-tests-field
+**Branch name:** feat/50-add-has-tests-field
 
 **Setup confirmation:** [x] App runs locally at localhost:5173
 

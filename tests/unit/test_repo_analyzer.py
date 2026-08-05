@@ -37,8 +37,72 @@ class TestRepoAnalyzer:
             "name": "sample-project",
             "language": "Python",
             "file_structure": [
-            "app.py",
-            "docs/test_notes.md",
+                "app.py",
+                "docs/test_notes.md",
+            ],
+        }
+
+        result = parser.parse(repo_data)
+
+        assert isinstance(result, ParseResult)
+        assert result.metadata["has_tests"] is False
+
+    def test_detects_tests_directory(self, parser):
+        """Repository with a tests/ directory should report has_tests=True."""
+        repo_data = {
+            "name": "sample-project",
+            "language": "Python",
+            "file_structure": [
+                "app.py",
+                "tests/test_app.py",
+            ],
+        }
+
+        result = parser.parse(repo_data)
+
+        assert isinstance(result, ParseResult)
+        assert result.metadata["has_tests"] is True
+
+    def test_detects_test_directory(self, parser):
+        """Repository with a test/ directory should report has_tests=True."""
+        repo_data = {
+            "name": "sample-project",
+            "language": "Python",
+            "file_structure": [
+                "app.py",
+                "test/test_app.py",
+            ],
+        }
+
+        result = parser.parse(repo_data)
+
+        assert isinstance(result, ParseResult)
+        assert result.metadata["has_tests"] is True
+
+    def test_detects_pytest_ini(self, parser):
+        """Repository with pytest.ini should report has_tests=True."""
+        repo_data = {
+            "name": "sample-project",
+            "language": "Python",
+            "file_structure": [
+                "app.py",
+                "pytest.ini",
+            ],
+        }
+
+        result = parser.parse(repo_data)
+
+        assert isinstance(result, ParseResult)
+        assert result.metadata["has_tests"] is True
+
+    def test_repository_without_tests(self, parser):
+        """Repository without test indicators should report has_tests=False."""
+        repo_data = {
+            "name": "sample-project",
+            "language": "Python",
+            "file_structure": [
+                "app.py",
+                "README.md",
             ],
         }
 

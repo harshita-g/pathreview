@@ -25,3 +25,32 @@ The repository analysis output currently does not indicate whether a project inc
 **Setup confirmation:** [x] App runs locally at localhost:5173
 
 **Cohort ledger:** [x] Issue added to cohort ledger
+
+## Implementation progress so far:
+
+Progress so far:
+
+I implemented the has_tests boolean in ingestion/parsers/repo_analyzer.py. The analyzer now detects common testing indicators, including tests/ and test/ directories, pytest.ini, Python files matching test_*.py, __tests__, and spec/.
+
+During testing, I found that the initial implementation incorrectly detected non-Python files such as docs/test_notes.md. I updated the logic so that files beginning with test_ must also end with .py.
+
+Tests added:
+
+Detects test_*.py
+Detects a tests/ directory
+Detects a test/ directory
+Detects pytest.ini
+Returns false when no tests exist
+Prevents false positives for files such as test_notes.md
+
+Verification:
+
+Focused repository analyzer tests: 6 passed
+Full test suite: 381 passed, 53 failed, 2 warnings
+The full-suite failures are in unrelated modules and do not involve RepoAnalyzer
+
+Remaining work:
+
+Submit the pull request
+Check CI
+Add the pull request link to the final Week 9 journal entry

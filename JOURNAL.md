@@ -49,8 +49,32 @@ Focused repository analyzer tests: 6 passed
 Full test suite: 381 passed, 53 failed, 2 warnings
 The full-suite failures are in unrelated modules and do not involve RepoAnalyzer
 
-Remaining work:
 
-Submit the pull request
-Check CI
-Add the pull request link to the final Week 9 journal entry
+Pull request: Add has_tests boolean to repository analysis
+https://github.com/ascherj/pathreview/pull/925
+
+Implementation summary:
+
+I completed the has_tests feature for repository analysis. The parser now detects common automated-testing indicators and includes the result in both the generated repository summary and parser metadata.
+
+Edge cases handled:
+
+Python files matching test_*.py
+tests/ directories
+test/ directories
+pytest.ini
+__tests__ directories
+spec/ directories
+Repositories without tests
+Non-Python files such as test_notes.md
+
+Verification:
+
+Focused repository analyzer tests: 6 passed
+Full test suite: 381 passed, 53 failed, 2 warnings
+The full-suite failures are unrelated to this feature
+GitHub CI: [replace with passed, failed, or pending]
+
+What I learned:
+
+The initial implementation handled the main case but produced a false positive for a Markdown file beginning with test_. Adding a targeted edge-case test exposed the issue and helped make the detection logic more precise. I also verified the feature in the project’s required Python 3.11 environment and ran the complete test suite before submitting the pull request.

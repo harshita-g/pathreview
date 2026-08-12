@@ -78,3 +78,90 @@ GitHub CI: [replace with passed, failed, or pending]
 What I learned:
 
 The initial implementation handled the main case but produced a false positive for a Markdown file beginning with test_. Adding a targeted edge-case test exposed the issue and helped make the detection logic more precise. I also verified the feature in the project’s required Python 3.11 environment and ran the complete test suite before submitting the pull request.
+
+
+
+
+## Week 9 — Pull request submission
+### Pull request
+
+**PR link:** https://github.com/ascherj/pathreview/pull/925
+
+**PR title:** Add has_tests boolean to repository analysis
+
+### Implementation summary
+
+I completed the `has_tests` feature for repository analysis. The analyzer now checks repository contents for common automated testing indicators and includes the result as a boolean in the repository analysis output.
+
+The implementation detects:
+
+- `tests/` directories
+- `test/` directories
+- `pytest.ini`
+- Python files matching `test_*.py`
+- `__tests__/` directories
+- `spec/` directories
+
+I also added an edge-case test to prevent non-Python files such as `test_notes.md` from being incorrectly classified as tests.
+
+### Testing and verification
+
+- Focused repository analyzer tests: 6 passed
+- Full test suite: 381 passed, 53 failed, 2 warnings
+- The full-suite failures were in unrelated modules and did not involve `RepoAnalyzer`
+
+### What I learned
+
+One important issue I found during testing was that my initial implementation treated any file beginning with `test_` as a test file. This caused false positives for files such as `test_notes.md`. Adding a targeted edge-case test helped me catch the problem and refine the detection logic so that `test_` files must also end in `.py`.
+
+I also learned the importance of testing both the specific functionality I changed and the larger project test suite before submitting a pull request.
+
+
+
+
+
+
+## Week 10 — Iteration & reflection
+### Reviewer feedback
+
+**Feedback received:** [ ] Yes  [x] No — still awaiting review
+
+**Summary of feedback:**
+
+No reviewer or maintainer feedback was received for the pull request during Summer 2026.
+
+**How you responded:**
+
+No response or code changes were required because reviewer feedback was not provided.
+
+---
+
+### Reflection
+
+**What was harder than you expected?**
+
+Understanding the existing repository structure and deciding where the `has_tests` logic belonged was harder than I expected. I also had to think beyond the basic acceptance criteria and handle edge cases correctly. For example, my initial implementation treated files such as `test_notes.md` as test files because they started with `test_`. Writing targeted tests helped me identify that false positive and refine the detection logic.
+
+---
+
+### Reflection
+
+**What was harder than you expected?**
+
+Understanding the existing repository structure and deciding where the `has_tests` logic belonged was harder than I expected. I also had to think beyond the basic acceptance criteria and handle edge cases correctly. For example, my initial implementation treated files such as `test_notes.md` as test files because they started with `test_`. Writing targeted tests helped me identify that false positive and refine the detection logic.
+
+**What did you learn about working in a large codebase?**
+
+I learned that contributing to an existing codebase requires more than just implementing the requested feature. I had to understand the repository structure, follow existing patterns, avoid changing unrelated behavior, and verify that my changes did not break other parts of the project. I also learned that focused tests are important, but running the broader test suite gives additional confidence about how a small change interacts with the rest of the codebase.
+
+**How did AI tools help — and where did they fall short?**
+
+AI tools were useful for understanding unfamiliar parts of the codebase, suggesting implementation approaches, debugging test failures, and helping me think through edge cases. However, I still had to verify the suggestions against the actual repository behavior and test results. AI did not automatically know which failures were caused by my change versus unrelated existing issues, so I had to inspect the test output and validate the implementation myself.
+
+**What would you do differently if you started over?**
+
+I would spend more time at the beginning tracing the relevant code paths and existing tests before writing the implementation. That would have helped me identify the expected patterns and edge cases earlier. I would also add negative test cases, such as non-Python files beginning with test_, from the start instead of discovering them after the initial implementation.
+
+**What are you most proud of from this module?**
+
+I am most proud of taking a real issue from selection through implementation, testing, and pull request submission in an unfamiliar codebase. I was able to catch and fix an edge case through testing rather than stopping once the basic feature worked, which made the final implementation more reliable.
